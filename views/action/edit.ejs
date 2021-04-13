@@ -1,0 +1,78 @@
+<% layout('/layout/boilerplate') -%>
+
+    <div class="container-md w-75 mt-5 text-dark">
+        <p class="fs-1">Edit a post</p>
+        <form class="row g-3 needs-validation" action="/edit/<%= blog._id %>?_method=PUT" method="POST" novalidate>
+            <div class="col">
+                <label for="vardas" class="form-label">Author</label>
+                <input type="text" class="form-control" id="vardas" placeholder="Full Name" name="vardas" value="<%= blog.author %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Heading 1</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title" name="title" value="<%= blog.title %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Heading 2</label>
+                <input type="text" class="form-control" id="title" placeholder="After title" name="afterTitle" value="<%= blog.subheading %>">
+            </div>
+            <div class="mb-3">
+                <label for="editor" class="form-label">Content text</label>
+                <textarea id="editor" name="content" required> <%= blog.body %></textarea>
+            </div>
+            <div class="mb-3">
+                <a href="/" class="btn btn-outline-secondary mb-3">Go back</a>
+                <button type="submit" class="btn btn-primary mb-3 float-end">Update</button>
+            </div>
+        </form>
+
+        <button type="submit" id="trinam" class="btn btn-sm btn-outline-danger mb-3 float-end" data-bs-toggle="modal" data-bs-target="#istrinimas">Delete this post</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="istrinimas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deletion of
+                            <%= blog.title %>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this post?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="/edit/<%=blog._id%>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.tiny.cloud/1/ms9p3u04o19lg0srqkctpuj47dz41uxiesk5hgqa59jtunu2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            // tinymce.init({
+            //     selector: '#editor',
+            //     plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            //     toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+            //     toolbar_mode: 'floating',
+            //     tinycomments_mode: 'embedded',
+            //     tinycomments_author: 'Author name',
+            //     images_upload_url: 'postAcceptor.php',
+            //     automatic_uploads: false
+            // });
+            tinymce.init({
+                selector: '#editor',
+                height: 500,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste imagetools wordcount'
+                ],
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            });
+        </script>
+
+    </div>

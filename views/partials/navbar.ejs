@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container-fluid w-75 d-flex">
+        <a class="navbar-brand" href="/">BlogJus</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav me-5">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="#">About</a>
+            </ul>
+            <div class="navbar-nav ms-auto">
+                <% if(!currentUser) { %>
+                    <a class="nav-link" href="/login">Admin login</a>
+                    <% } else{ %>
+                        <a class="nav-link" href="/create">New post</a>
+                        <a class="nav-link" href="/account">Account</a>
+                        <a class="nav-link" href="/logout">Admin logout</a>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

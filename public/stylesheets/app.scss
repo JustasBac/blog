@@ -1,0 +1,40 @@
+    body {
+        background: #edede8;
+    }
+    
+    .klase {
+        background: rgba(61, 55, 55, 0.5);
+    }
+    
+    .fab {
+        font-size: 2em;
+        color: #6b705c;
+        &:hover {
+            color: #ddbea9;
+        }
+    }
+    
+    .bandom {
+        border: solid red;
+    }
+    
+    .card-body .registravimas {
+        background: rgb(145, 125, 61);
+        border: none;
+        transition: 0.5s;
+        &:hover {
+            background: rgb(126, 105, 36);
+            border-radius: 0.7em;
+        }
+    }
+    
+    .accountas {
+        .col-lg-4 {
+            img {
+                object-fit: cover;
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+            }
+        }
+    }

@@ -1,0 +1,40 @@
+<% layout('/layout/boilerplate') -%>
+
+    <div class="text-dark container mt-5 justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+                <div class="card text-dark shadow">
+                    <img class="card-img-top" src="https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmxvZ3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+                    <div class="card-body">
+                        <form action="/register" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+                            <h5 class="card-title">Create a new admin</h5>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="username" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="text" class="form-label">Some text about you:</label>
+                                <textarea type="text" class="form-control" id="text" name="text" rows="3" placeholder="(max 80 symbols)" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="avataras" class="form-label">Your avatar image:</label>
+                                <input type="file" name="avataras" id="avataras">
+                            </div>
+                            <button type="submit" class="btn btn-secondary registravimas">Create</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>

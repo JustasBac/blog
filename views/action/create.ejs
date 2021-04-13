@@ -1,0 +1,43 @@
+<% layout('/layout/boilerplate') -%>
+
+    <div class="container-md w-75 mt-5 text-dark">
+        <p class="fs-1">Create a new post</p>
+        <form class="row g-3 needs-validation" action="/create" method="POST" novalidate>
+
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Heading 1</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title" name="title" required>
+                <div class="invalid-feedback">
+                    The title is needed!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Heading 2</label>
+                <input type="text" class="form-control" id="title" placeholder="After title" name="afterTitle">
+            </div>
+            <div class="mb-3">
+                <label for="editor" class="form-label">Content text</label>
+                <textarea id="editor" name="content" required></textarea>
+            </div>
+            <div class="mb-3">
+                <a href="/" class="btn btn-outline-secondary mb-3">Go back</a>
+                <button type="submit" class="btn btn-primary mb-3 mx-4">Create</button>
+            </div>
+        </form>
+
+        <script src="https://cdn.tiny.cloud/1/ms9p3u04o19lg0srqkctpuj47dz41uxiesk5hgqa59jtunu2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: '#editor',
+                height: 500,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste imagetools wordcount'
+                ],
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            });
+        </script>
+
+    </div>

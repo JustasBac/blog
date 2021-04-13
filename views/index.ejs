@@ -1,0 +1,98 @@
+<% layout('/layout/boilerplate') -%>
+    <div class="container-md w-75 my-5">
+        <div class="row">
+            <div class="col-md-8" style="color: #8a817c; overflow: hidden;">
+                <% for(let blog of blogPosts) {%>
+                    <!-- <img src="/images/pattern.png" alt=""> -->
+                    <p class="fs-1 text-dark m-0">
+                        <%= blog.title %>
+                    </p>
+
+                    <p class="fs-3">
+                        <%= blog.subheading %>
+                    </p>
+                    <%- blog.body %>
+
+                        <% if(!currentUser) {%>
+                            <p class="fw-light m-0">Posted by
+                                <%= blog.author %>,
+                                    <%= blog.date %>
+                            </p>
+                            <% } %>
+                                <% if(currentUser) {%>
+                                    <div class="container p-0">
+                                        <div class="row m-0">
+                                            <div class="col-10 p-0">
+                                                <p class="fw-light m-0">Posted by
+                                                    <%= blog.author %>,
+                                                        <%= blog.date %>
+                                                </p>
+                                            </div>
+                                            <div class="col">
+                                                <a href="/edit/<%=blog._id%>" class="btn btn-sm btn-outline-warning my-1 float-end">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+
+
+
+                                        <hr class="m-0 mb-5">
+
+                                        <% } %>
+            </div>
+
+            <div class="col-md-4">
+                <div class="container mb-5">
+                    <div class="row justify-content-between text-center">
+                        <div class="col-4">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <p class="fs-4 text-dark">Authors</p>
+                    <% for(let admin of admins) {%>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <% if(!admin.avatarImage.url) {%>
+                                    <img src="/images/author.png" class="img-fluid" alt="...">
+                                    <% }else{ %>
+                                        <div>
+                                            <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="..." style="
+                                            object-fit: cover;
+                                            width: 100px;
+                                            height: 100px;
+                                            border-radius: 50%;">
+                                        </div>
+                                        <% } %>
+                            </div>
+                            <div class="col-8">
+                                <p class="text-dark fw-bold mb-0">
+                                    <%= admin.username %>
+                                </p>
+                                <p class="text-dark">
+                                    <%= admin.aboutMe %>
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1349&q=80" class="img-fluid" alt="...">
+                    <div class="klase position-absolute bottom-0 start-0 w-100">
+                        <p class="ps-2 fs-4 pt-2">Kazkokia antraste sdcia...</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

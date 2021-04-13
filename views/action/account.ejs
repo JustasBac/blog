@@ -1,0 +1,46 @@
+<% layout('/layout/boilerplate') -%>
+    <div class="text-dark container mt-5 accountas">
+        <form action="/account?_method=PUT" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+            <div class="row justify-content-center">
+                <div class="col-lg-4" style="border: solid green;">
+                    <h5 class="card-title">Account settings</h5>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your email:</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<%= admin.email %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Your username:</label>
+                        <input type="username" class="form-control" id="username" name="username" value="<%= admin.username %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Some text about you:</label>
+                        <textarea type="text" class="form-control" id="text" name="text" rows="3" required><%= admin.aboutMe %></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="border: solid green;">
+                    <div class="row float-end text-center">
+                        <!-- <p>Your current avatar image:</p> -->
+                        <% if(admin.avatarImage.url) {%>
+                            <label for="fotke" class="form-label mt-1">Your current avatar image:</label>
+                            <div>
+                                <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="" id="fotke">
+                            </div>
+
+                            <% } else { %>
+                                <label for="fotke" class="form-label mt-1">Your current avatar image:</label>
+                                <img src="/images/author.png" alt="" id="fotke">
+                                <div class="justify-content-end m-0 p-0">
+                                    <img src="/images/author.png" alt="" id="fotke">
+                                </div>
+                                <% } %>
+                                    <div class="input-group my-3">
+                                        <input type="file" class="form-control" id="avataras" name="avataras">
+                                        <label class="input-group-text" for="avataras">Upload</label>
+                                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary registravimas float-end my-2">Button</button>
+                </div>
+            </div>
+        </form>
+
+    </div>

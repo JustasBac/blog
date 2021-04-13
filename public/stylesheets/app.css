@@ -1,0 +1,41 @@
+body {
+  background: #edede8;
+}
+
+.klase {
+  background: rgba(61, 55, 55, 0.5);
+}
+
+.fab {
+  font-size: 2em;
+  color: #6b705c;
+}
+
+.fab:hover {
+  color: #ddbea9;
+}
+
+.bandom {
+  border: solid red;
+}
+
+.card-body .registravimas {
+  background: #917d3d;
+  border: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.card-body .registravimas:hover {
+  background: #7e6924;
+  border-radius: 0.7em;
+}
+
+.accountas .col-lg-4 img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+/*# sourceMappingURL=app.css.map */
