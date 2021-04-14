@@ -1,7 +1,7 @@
 <% layout('/layout/boilerplate') -%>
     <div class="container-md w-75 my-5">
         <div class="row">
-            <div class="col-md-8" style="color: #8a817c; overflow: hidden;">
+            <div class="col-lg-8" style="color: #8a817c; overflow: hidden;">
                 <% for(let blog of blogPosts) {%>
                     <!-- <img src="/images/pattern.png" alt=""> -->
                     <p class="fs-1 text-dark m-0">
@@ -34,15 +34,19 @@
                                         </div>
                                     </div>
                                     <% } %>
-
-
-
                                         <hr class="m-0 mb-5">
-
                                         <% } %>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
+                <p class="fs-4 text-center">About the blog page</p>
+                <div style="background: rgb(224, 190, 190); border-radius: 0.4em;" class="mx-4">
+                    <img class="card-img-top" style="border-radius: 0.4em 0.4em 0 0;" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJsb2d8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+                    <p class="fs-5 text-center mb-0 mt-2 fw-bold">Welcome!</p>
+                    <p class="fs-6 px-4 pb-3 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. In quod eos tempora dignissimos repudiandae pariatur vel molestias, nulla vero commodi atque natus ipsum facere consequuntur doloribus eum nisi, sunt perspiciatis. Lorem ipsum
+                        dolor sit amet, consectetur adipisicing elit. Quae nisi distinctio doloremque laudantium ullam adipisci eligendi fuga! Architecto nobis saepe sint distinctio voluptates maxime expedita nihil, iusto ipsum placeat veniam.</p>
+                </div>
+
                 <div class="container mb-5">
                     <div class="row justify-content-between text-center">
                         <div class="col-4">
@@ -58,19 +62,15 @@
                 </div>
 
                 <div class="container">
-                    <p class="fs-4 text-dark">Authors</p>
+                    <p class="fs-4 text-dark text-center">Authors</p>
                     <% for(let admin of admins) {%>
-                        <div class="row mb-3">
+                        <div class="row mb-3 py-2" style="background: rgba(224, 190, 190,0.3); border-radius: 0.4em;">
                             <div class="col-4">
                                 <% if(!admin.avatarImage.url) {%>
                                     <img src="/images/author.png" class="img-fluid" alt="...">
                                     <% }else{ %>
                                         <div>
-                                            <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="..." style="
-                                            object-fit: cover;
-                                            width: 100px;
-                                            height: 100px;
-                                            border-radius: 50%;">
+                                            <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="..." style="border-radius: 50%;">
                                         </div>
                                         <% } %>
                             </div>
@@ -86,12 +86,6 @@
                         <% } %>
                 </div>
 
-                <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1349&q=80" class="img-fluid" alt="...">
-                    <div class="klase position-absolute bottom-0 start-0 w-100">
-                        <p class="ps-2 fs-4 pt-2">Kazkokia antraste sdcia...</p>
-                    </div>
-                </div>
 
             </div>
         </div>

@@ -22,7 +22,7 @@ const LocalStrategy = require('passport-local');
 
 //image uploadui:
 const multer = require('multer');
-const { storage } = require('./cloudinaryFolder');
+const { storage, cloudinary } = require('./cloudinaryFolder');
 const upload = multer({ storage });
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -114,9 +114,12 @@ app.get('/register', function(req, res) {
 
 app.post('/register', upload.single('avataras'), async(req, res, next) => {
     try {
-        const { username, email, password, text } = req.body;
-        const { path, filename } = req.file;
-        const user = new Admin({ email: email, username: username, aboutMe: text, avatarImage: { url: path, filename: filename } });
+        if (req.file) {
+            const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,q_100,r_max,w_1000');
+            const user = new Admin({ email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } });
+        } else {
+            const user = new Admin({ email: email, username: username, aboutMe: text });
+        }
         const registeredUser = await Admin.register(user, password);
         req.login(registeredUser, err => { // loginam nauja useri in!
             if (err) return next(err);
@@ -167,7 +170,9 @@ app.put('/account', isLoggedIn, upload.single('avataras'), async(req, res) => {
     try {
         if (req.user.username !== username) {
             if (req.file) {
-                const parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: req.file.path, filename: req.file.filename } };
+                cloudinary.uploader.destroy(req.user.avatarImage.filename);
+                const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,q_100,r_max,w_1000');
+                const parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } };
                 await Admin.findByIdAndUpdate(req.user.id, parametrai);
             } else {
                 const parametrai = { email: email, username: username, aboutMe: text };
@@ -177,7 +182,9 @@ app.put('/account', isLoggedIn, upload.single('avataras'), async(req, res) => {
             return res.redirect("/");
         } else {
             if (req.file) {
-                const parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: req.file.path, filename: req.file.filename } };
+                cloudinary.uploader.destroy(req.user.avatarImage.filename);
+                const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,o_100,r_max,w_234');
+                const parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } };
                 await Admin.findByIdAndUpdate(req.user.id, parametrai);
             } else {
                 const parametrai = { email: email, username: username, aboutMe: text };
