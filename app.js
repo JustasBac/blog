@@ -52,8 +52,9 @@ passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
 //MONGO DB_------------------------------------------------------------------------------------------------------------
-//const db_url = 'mongodb://localhost:27017/camp';
-mongoose.connect('mongodb://localhost:27017/blog', {
+const db_url = process.env.DB_URL;
+//mongodb://localhost:27017/blog
+mongoose.connect(db_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -119,6 +120,7 @@ app.get('/register', function(req, res) {
 })
 
 app.post('/register', upload.single('avataras'), async(req, res, next) => {
+    const { email, username, text, content, password } = req.body;
     try {
         if (text.length > 240) {
             req.flash('error', 'The text about you cannot be longer than 240 symbols!');
@@ -126,16 +128,23 @@ app.post('/register', upload.single('avataras'), async(req, res, next) => {
         }
         if (req.file) {
             const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,q_100,r_max,w_1000');
-            const user = new Admin({ email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } });
+            const user = new Admin({ email: email, username: username, aboutMe: text, avatarImage: { url: req.file.path, filename: req.file.filename } });
+            const registeredUser = await Admin.register(user, password);
+            req.login(registeredUser, err => { // loginam nauja useri in!
+                if (err) return next(err);
+                req.flash('success', 'The admin was created!');
+                res.redirect("/");
+            })
         } else {
             const user = new Admin({ email: email, username: username, aboutMe: text });
+            const registeredUser = await Admin.register(user, password);
+            req.login(registeredUser, err => { // loginam nauja useri in!
+                if (err) return next(err);
+                req.flash('success', 'The admin was created!');
+                res.redirect("/");
+            })
         }
-        const registeredUser = await Admin.register(user, password);
-        req.login(registeredUser, err => { // loginam nauja useri in!
-            if (err) return next(err);
-            req.flash('success', 'The admin was created!');
-            res.redirect("/");
-        })
+
     } catch (e) {
         req.flash('error', e.message)
         res.redirect("/register");
