@@ -3,7 +3,6 @@
     <div class="container-md w-75 mt-5 text-dark">
         <p class="fs-1">Create a new post</p>
         <form class="row g-3 needs-validation" action="/create" method="POST" novalidate>
-
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label">Heading 1</label>
                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title" name="title" required>
@@ -13,15 +12,20 @@
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Heading 2</label>
-                <input type="text" class="form-control" id="title" placeholder="After title" name="afterTitle">
+                <input type="text" class="form-control" id="title" placeholder="After title" name="afterTitle" required>
             </div>
             <div class="mb-3">
                 <label for="editor" class="form-label">Content text</label>
-                <textarea id="editor" name="content" required></textarea>
+                <textarea id="editor" name="content"></textarea>
             </div>
             <div class="mb-3">
                 <a href="/" class="btn btn-outline-secondary mb-3">Go back</a>
-                <button type="submit" class="btn btn-primary mb-3 mx-4">Create</button>
+                <% if(currentUser.tester == true) {%>
+                    <p class="text-danger">You are using a test account! Therefore, you cannot add a new post.</p>
+                    <button type="submit" class="btn btn-primary mb-3 mx-4" disabled>Create</button>
+                    <% } else {%>
+                        <button type="submit" class="btn btn-primary mb-3 mx-4">Create</button>
+                        <% } %>
             </div>
         </form>
 

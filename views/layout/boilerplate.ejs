@@ -8,19 +8,30 @@
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/app.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body class="text-dark d-flex flex-column vh-100">
-    <%- include('../partials/navbar') %>
-        <main class="mb-5">
-            <%- include('../partials/flash') %>
-                <%- body -%>
-        </main>
+    <% if(!currentUser) { %>
+        <p class="text-center m-0 fw-bold">Test the webiste as an administrator!</p>
+        <p class="text-center m-0 fw-light"><b>Username:</b> test</p>
+        <p class="text-center m-0 fw-light"><b>Password:</b> test</p>
+        <% } %>
 
-        <%- include('../partials/footer') %>
-            <script src="/javascripts/bootstrap.bundle.min.js"></script>
-            <script src="/javascripts/validations.js"></script>
-            <script src="https://kit.fontawesome.com/a60cf626c9.js" crossorigin="anonymous"></script>
+            <%- include('../partials/navbar') %>
+                <main class="mb-5">
+                    <%- include('../partials/flash') %>
+                        <%- body -%>
+                </main>
+
+
+                <%- include('../partials/footer') %>
+                    <script src="/javascripts/bootstrap.bundle.min.js"></script>
+                    <script src="/javascripts/validations.js"></script>
+                    <script src="https://kit.fontawesome.com/a60cf626c9.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

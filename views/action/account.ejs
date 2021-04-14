@@ -2,7 +2,7 @@
     <div class="text-dark container mt-5 accountas">
         <form action="/account?_method=PUT" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="row justify-content-center">
-                <div class="col-lg-4" style="border: solid green;">
+                <div class="col-lg-4">
                     <h5 class="card-title">Account settings</h5>
                     <div class="mb-3">
                         <label for="email" class="form-label">Your email:</label>
@@ -17,13 +17,13 @@
                         <textarea type="text" class="form-control" id="text" name="text" rows="3" required><%= admin.aboutMe %></textarea>
                     </div>
                 </div>
-                <div class="col-lg-4" style="border: solid green;">
+                <div class="col-lg-4">
                     <div class="row float-end text-center">
                         <!-- <p>Your current avatar image:</p> -->
                         <% if(admin.avatarImage.url) {%>
                             <label for="fotke" class="form-label mt-1">Your current avatar image:</label>
                             <div>
-                                <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="" id="fotke">
+                                <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="" id="fotke" style="border-radius: 50%;">
                             </div>
 
                             <% } else { %>
@@ -38,7 +38,12 @@
                                         <label class="input-group-text" for="avataras">Upload</label>
                                     </div>
                     </div>
-                    <button type="submit" class="btn btn-secondary registravimas float-end my-2">Update</button>
+                    <% if(admin.tester == true) {%>
+                        <p class="text-danger">You are using a test account! Therefore, you cannot update account settings.</p>
+                        <button type="submit" class="btn btn-secondary registravimas float-end my-2" disabled>Update</button>
+                        <% } else {%>
+                            <button type="submit" class="btn btn-secondary registravimas float-end my-2">Update</button>
+                            <% } %>
                 </div>
             </div>
         </form>

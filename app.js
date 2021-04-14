@@ -87,9 +87,15 @@ var today = curHour + ":" + curMinute + " " + dayOfMonth + " of " + curMonth + "
 console.log(today)
 
 const isLoggedIn = (req, res, next) => {
-    // console.log("req.user....", req.user)
     if (!req.isAuthenticated()) {
         req.flash('error', 'You should be logged in as administrator!')
+        return res.redirect('/')
+    }
+    next();
+}
+const isTester = (req, res, next) => {
+    if (req.user.tester == true) {
+        req.flash('error', 'You are not allowed to do that with this account!')
         return res.redirect('/')
     }
     next();
@@ -114,6 +120,10 @@ app.get('/register', function(req, res) {
 
 app.post('/register', upload.single('avataras'), async(req, res, next) => {
     try {
+        if (text.length > 240) {
+            req.flash('error', 'The text about you cannot be longer than 240 symbols!');
+            return res.redirect("/account");
+        }
         if (req.file) {
             const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,q_100,r_max,w_1000');
             const user = new Admin({ email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } });
@@ -151,7 +161,7 @@ app.get('/create', isLoggedIn, function(req, res) {
     res.render("action/create")
 })
 
-app.post('/create', isLoggedIn, async(req, res) => {
+app.post('/create', isLoggedIn, isTester, async(req, res) => {
     const { vardas, title, afterTitle, content } = req.body;
     const blog = new Blog({ author: req.user.username, title: title, subheading: afterTitle, body: content, date: today })
     await blog.save()
@@ -164,10 +174,14 @@ app.get('/account', isLoggedIn, (req, res) => {
     res.render("action/account", { admin })
 })
 
-app.put('/account', isLoggedIn, upload.single('avataras'), async(req, res) => {
+app.put('/account', isLoggedIn, isTester, upload.single('avataras'), async(req, res) => {
     const obj = JSON.parse(JSON.stringify(req.body));
     const { username, email, text } = obj;
     try {
+        if (text.length > 240) {
+            req.flash('error', 'The text about you cannot be longer than 240 symbols!');
+            return res.redirect("/account");
+        }
         if (req.user.username !== username) {
             if (req.file) {
                 cloudinary.uploader.destroy(req.user.avatarImage.filename);
@@ -209,10 +223,10 @@ app.get('/edit/:id', isLoggedIn, async(req, res) => {
     res.render("action/edit", { blog })
 })
 
-app.put('/edit/:id', isLoggedIn, async(req, res) => {
+app.put('/edit/:id', isLoggedIn, isTester, async(req, res) => {
     const { id } = req.params;
-    const { vardas, title, afterTitle, content } = req.body;
-    const blog = await Blog.findByIdAndUpdate(id, { author: vardas, title: title, subheading: afterTitle, body: content });
+    const { title, afterTitle, content } = req.body;
+    const blog = await Blog.findByIdAndUpdate(id, { title: title, subheading: afterTitle, body: content });
     await blog.save()
     req.flash('success', 'The post was updated!')
     res.redirect("/")

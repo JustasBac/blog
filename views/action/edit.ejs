@@ -21,7 +21,12 @@
             </div>
             <div class="mb-3">
                 <a href="/" class="btn btn-outline-secondary mb-3">Go back</a>
-                <button type="submit" class="btn btn-primary mb-3 float-end">Update</button>
+                <% if(currentUser.tester == true) {%>
+                    <p class="text-danger">You are using a test account! Therefore, you cannot edit a post.</p>
+                    <button type="submit" class="btn btn-primary mb-3 float-end" disabled>Update</button>
+                    <% } else {%>
+                        <button type="submit" class="btn btn-primary mb-3 float-end">Update</button>
+                        <% } %>
             </div>
         </form>
 
@@ -39,11 +44,18 @@
                     </div>
                     <div class="modal-body">
                         Are you sure you want to delete this post?
+                        <% if(currentUser.tester == true) {%>
+                            <p class="text-danger">You are using a test account! Therefore, you cannot delete this post.</p>
+                            <% } %>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <form action="/edit/<%=blog._id%>?_method=DELETE" method="POST">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <% if(currentUser.tester == true) {%>
+                                <button type="submit" class="btn btn-danger" disabled>Delete</button>
+                                <% } else {%>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <% } %>
                         </form>
                     </div>
                 </div>

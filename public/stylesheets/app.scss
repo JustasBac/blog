@@ -2,6 +2,48 @@
         background: #edede8;
     }
     
+    div.bakraundas {
+        background-image: linear-gradient(rgba(237, 237, 232, 0.3), rgba(237, 237, 232, 0.4)), url("/images/bakraundas.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 35vh;
+        p.bakraundoTextas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Lobster', cursive;
+            font-size: 4vw;
+            color: #8a817c
+        }
+    }
+    
+    div {
+        .eilute {
+            width: 100%;
+            display: inline-block;
+            .fontas {
+                font-size: 3.5em;
+                padding: 0;
+                margin: 0;
+                margin-right: .3em;
+            }
+            p {
+                font-family: 'Dancing Script', cursive;
+                display: inline-block;
+            }
+        }
+    }
+    
+    hr {
+        border: none;
+        border-top: .3em dotted #f00;
+        color: #fff;
+        background-color: #fff;
+        height: 0.1px;
+        width: 100%;
+    }
+    
     .klase {
         background: rgba(61, 55, 55, 0.5);
     }

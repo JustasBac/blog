@@ -1,16 +1,23 @@
 <% layout('/layout/boilerplate') -%>
-    <div class="container-md w-75 my-5">
+    <div class="position-relative bakraundas">
+
+        <p class="bakraundoTextas">Welcome to my blog!</p>
+    </div>
+
+    <div class="container-md w-100 mt-3 px-3">
         <div class="row">
-            <div class="col-lg-8" style="color: #8a817c; overflow: hidden;">
+            <div class="col-lg-8" style="color: #8a817c; overflow: hidden">
                 <% for(let blog of blogPosts) {%>
                     <!-- <img src="/images/pattern.png" alt=""> -->
-                    <p class="fs-1 text-dark m-0">
-                        <%= blog.title %>
-                    </p>
+                    <div class="eilute">
+                        <p class="fontas" style="color: rgb(224,190,190)">
+                            <%= blog.title %>
+                        </p>
+                        <p class="fs-3 p-0">
+                            <%= blog.subheading %>
+                        </p>
+                    </div>
 
-                    <p class="fs-3">
-                        <%= blog.subheading %>
-                    </p>
                     <%- blog.body %>
 
                         <% if(!currentUser) {%>
@@ -29,7 +36,7 @@
                                                 </p>
                                             </div>
                                             <div class="col">
-                                                <a href="/edit/<%=blog._id%>" class="btn btn-sm btn-outline-warning my-1 float-end">Edit</a>
+                                                <a href="/edit/<%=blog._id%>" class="btn btn-sm btn-warning my-1 float-end">Edit</a>
                                             </div>
                                         </div>
                                     </div>
@@ -39,15 +46,15 @@
             </div>
 
             <div class="col-lg-4">
-                <p class="fs-4 text-center">About the blog page</p>
+                <p class="fs-4 text-center mt-3">About the blog page</p>
                 <div style="background: rgb(224, 190, 190); border-radius: 0.4em;" class="mx-4">
                     <img class="card-img-top" style="border-radius: 0.4em 0.4em 0 0;" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJsb2d8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
                     <p class="fs-5 text-center mb-0 mt-2 fw-bold">Welcome!</p>
-                    <p class="fs-6 px-4 pb-3 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. In quod eos tempora dignissimos repudiandae pariatur vel molestias, nulla vero commodi atque natus ipsum facere consequuntur doloribus eum nisi, sunt perspiciatis. Lorem ipsum
-                        dolor sit amet, consectetur adipisicing elit. Quae nisi distinctio doloremque laudantium ullam adipisci eligendi fuga! Architecto nobis saepe sint distinctio voluptates maxime expedita nihil, iusto ipsum placeat veniam.</p>
+                    <p class="fs-6 px-4 pb-3 text-center">Here should be some lorem ipsum text but instead I will name technologies used for this blog site. The whole application is powered by Node.js and express.js. The database used for storing posts and admin accounts is MongoDB. The admin
+                        authentication system is created by using passport npm. I used TinyMCE WYSIWYG editor for posting the main content text. Styled by SCSS and Boostrap. <br> Greetings, <br>Justas Bacinskas</p>
                 </div>
 
-                <div class="container mb-5">
+                <div class="container my-5">
                     <div class="row justify-content-between text-center">
                         <div class="col-4">
                             <a href="#"><i class="fab fa-facebook"></i></a>
@@ -85,7 +92,6 @@
                         </div>
                         <% } %>
                 </div>
-
 
             </div>
         </div>

@@ -13,6 +13,7 @@ const adminSchema = new Schema({
         unique: true
     },
     aboutMe: String,
+    tester: Boolean,
     avatarImage: {
         url: String,
         filename: String
