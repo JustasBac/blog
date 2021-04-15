@@ -8,7 +8,7 @@
         "start": "node app.js"
     },
     "keywords": [],
-    "author": "",
+    "author": "justasb",
     "license": "ISC",
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^27.0.0",
