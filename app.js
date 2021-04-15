@@ -38,8 +38,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
 app.use(mongoSanitize());
 
-// const db_url = process.env.DB_URL;
-const db_url = 'mongodb://localhost:27017/blog';
+const db_url = process.env.DB_URL;
+// const db_url = 'mongodb://localhost:27017/blog';
 
 //session!!! -------------------------------------------
 const store = new MongoDBStore({
