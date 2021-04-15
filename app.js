@@ -20,10 +20,14 @@ const Admin = require('./models/admins.js');
 const passport = require('passport')
 const LocalStrategy = require('passport-local');
 
+const mongoSanitize = require('express-mongo-sanitize');
+
 //image uploadui:
 const multer = require('multer');
 const { storage, cloudinary } = require('./cloudinaryFolder');
 const upload = multer({ storage });
+
+const MongoDBStore = require('connect-mongo');
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.engine('ejs', ejsMate);
@@ -32,10 +36,26 @@ app.set('views', path.join(__dirname, 'views')) // so you can render('index')
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
+app.use(mongoSanitize());
+
+// const db_url = process.env.DB_URL;
+const db_url = 'mongodb://localhost:27017/blog';
+
+//session!!! -------------------------------------------
+const store = new MongoDBStore({
+    mongoUrl: db_url,
+    touchAfter: 24 * 60 * 60 //laikas kada atfreshina in millisekundemis
+})
+
+store.on("error", function(e) {
+    console.log("Session store error")
+})
 
 app.use(flash());
 app.use(session({
-    secret: 'paslaptis',
+    store,
+    secret: process.env.SECRET || 'paslaptis',
+    name: 'blogSesija',
     resave: false,
     saveUninitialized: true, //REIKIA PRIDETI STORE!!!!
     cookie: {
@@ -52,7 +72,7 @@ passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
 //MONGO DB_------------------------------------------------------------------------------------------------------------
-const db_url = process.env.DB_URL;
+
 //mongodb://localhost:27017/blog
 mongoose.connect(db_url, {
     useNewUrlParser: true,
@@ -128,23 +148,18 @@ app.post('/register', upload.single('avataras'), async(req, res, next) => {
         }
         if (req.file) {
             const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,q_100,r_max,w_1000');
-            const user = new Admin({ email: email, username: username, aboutMe: text, avatarImage: { url: req.file.path, filename: req.file.filename } });
-            const registeredUser = await Admin.register(user, password);
-            req.login(registeredUser, err => { // loginam nauja useri in!
-                if (err) return next(err);
-                req.flash('success', 'The admin was created!');
-                res.redirect("/");
-            })
-        } else {
-            const user = new Admin({ email: email, username: username, aboutMe: text });
-            const registeredUser = await Admin.register(user, password);
-            req.login(registeredUser, err => { // loginam nauja useri in!
-                if (err) return next(err);
-                req.flash('success', 'The admin was created!');
-                res.redirect("/");
-            })
-        }
+            parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: req.file.path, filename: req.file.filename } };
 
+        } else {
+            parametrai = { email: email, username: username, aboutMe: text };
+        }
+        const user = new Admin(parametrai);
+        const registeredUser = await Admin.register(user, password);
+        req.login(registeredUser, err => { // loginam nauja useri in!
+            if (err) return next(err);
+            req.flash('success', 'The admin was created!');
+            res.redirect("/");
+        })
     } catch (e) {
         req.flash('error', e.message)
         res.redirect("/register");
@@ -195,24 +210,22 @@ app.put('/account', isLoggedIn, isTester, upload.single('avataras'), async(req, 
             if (req.file) {
                 cloudinary.uploader.destroy(req.user.avatarImage.filename);
                 const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,q_100,r_max,w_1000');
-                const parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } };
-                await Admin.findByIdAndUpdate(req.user.id, parametrai);
+                parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } };
             } else {
-                const parametrai = { email: email, username: username, aboutMe: text };
-                await Admin.findByIdAndUpdate(req.user.id, parametrai);
+                parametrai = { email: email, username: username, aboutMe: text };
             }
+            await Admin.findByIdAndUpdate(req.user.id, parametrai);
             req.flash('success', 'Your account was updated! You must re-login.');
             return res.redirect("/");
         } else {
             if (req.file) {
                 cloudinary.uploader.destroy(req.user.avatarImage.filename);
                 const linkas = req.file.path.replace('/upload', '/upload/ar_1:1,c_fill,g_auto,o_100,r_max,w_234');
-                const parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } };
-                await Admin.findByIdAndUpdate(req.user.id, parametrai);
+                parametrai = { email: email, username: username, aboutMe: text, avatarImage: { url: linkas, filename: req.file.filename } };
             } else {
-                const parametrai = { email: email, username: username, aboutMe: text };
-                await Admin.findByIdAndUpdate(req.user.id, parametrai);
+                parametrai = { email: email, username: username, aboutMe: text };
             }
+            await Admin.findByIdAndUpdate(req.user.id, parametrai);
             req.flash('success', 'Your account was updated!');
             return res.redirect("/account");
         }
@@ -253,34 +266,6 @@ app.get('/generate', async(req, res) => {
     await blog.save()
     res.send(`${blog}`)
 })
-
-
-
-
-
-// bbz------------------------
-// module.exports.createCampground = async(req, res, next) => {
-//     const geoData = await geocoder
-//         .forwardGeocode({
-//             query: req.body.campground.location,
-//             limit: 2,
-//         })
-//         .send();
-
-//     if (!req.body.campground)
-//         throw new ExpressError("Invalid Campground Data", 400);
-//     const campground = new Campground(req.body.campground);
-//     campground.geometry = geoData.body.features[0].geometry;
-//     campground.images = req.files.map((f) => ({
-//         url: f.path,
-//         filename: f.filename,
-//     })); 
-//     campground.author = req.user._id; 
-//     await campground.save();
-//     console.log(campground);
-//     req.flash("success", "A new campground was created successfuly!");
-//     res.redirect(`/campgrounds/${campground._id}`);
-// };
 
 
 const port = 3000;
