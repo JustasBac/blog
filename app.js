@@ -50,11 +50,12 @@ const store = new MongoDBStore({
 store.on("error", function(e) {
     console.log("Session store error")
 })
+const secret = process.env.SECRET || 'paslaptis';
 
 app.use(flash());
 app.use(session({
     store,
-    secret: process.env.SECRET || 'paslaptis',
+    secret,
     name: 'blogSesija',
     resave: false,
     saveUninitialized: true, //REIKIA PRIDETI STORE!!!!
