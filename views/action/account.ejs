@@ -23,14 +23,14 @@
                         <% if(admin.avatarImage.url) {%>
                             <label for="fotke" class="form-label mt-1">Your current avatar image:</label>
                             <div>
-                                <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="" id="fotke" style="border-radius: 50%;">
+                                <img src="<%= admin.avatarImage.url %>" class="img-fluid" alt="" id="fotke" style="border-radius: 50%; width: 70%;">
                             </div>
 
                             <% } else { %>
                                 <label for="fotke" class="form-label mt-1">Your current avatar image:</label>
-                                <img src="/images/author.png" alt="" id="fotke">
-                                <div class="justify-content-end m-0 p-0">
-                                    <img src="/images/author.png" alt="" id="fotke">
+                                <!-- <img src="/images/author.png" alt="" id="fotke" style="width: 50%;"> -->
+                                <div>
+                                    <img src="/images/author.png" alt="" id="fotke" class="img-fluid" style="width: 70%;">
                                 </div>
                                 <% } %>
                                     <div class="input-group my-3">
@@ -38,14 +38,17 @@
                                         <label class="input-group-text" for="avataras">Upload</label>
                                     </div>
                     </div>
+
+                </div>
+                <div class="container w-75">
                     <% if(admin.tester == true) {%>
-                        <p class="text-danger">You are using a test account! Therefore, you cannot update account settings.</p>
-                        <button type="submit" class="btn btn-secondary registravimas float-end my-2" disabled>Update</button>
+                        <p class="text-danger text-end">You are using a test account! Therefore, you cannot update account settings.</p>
+                        <button type="submit" class="btn btn-secondary registravimas float-end " disabled>Update</button>
                         <% } else {%>
-                            <button type="submit" class="btn btn-secondary registravimas float-end my-2">Update</button>
+                            <button type="submit" class="btn btn-secondary registravimas float-end ">Update</button>
                             <% } %>
+                                <a href="/" class="btn btn-outline-secondary float-start me-3">Go back</a>
                 </div>
             </div>
         </form>
-
     </div>

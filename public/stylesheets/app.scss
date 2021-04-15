@@ -51,6 +51,7 @@
     .fab {
         font-size: 2em;
         color: #6b705c;
+        transition: 0.5s;
         &:hover {
             color: #ddbea9;
         }
@@ -63,9 +64,31 @@
     .card-body .registravimas {
         background: rgb(145, 125, 61);
         border: none;
-        transition: 0.5s;
+        transition: 0.4s;
         &:hover {
             background: rgb(126, 105, 36);
             border-radius: 0.7em;
+        }
+    }
+    
+    nav {
+        div.container-fluid {
+            a.navbar-brand {
+                transition: 0.5s;
+                &:hover {
+                    color: rgba(224, 190, 190, 1);
+                }
+            }
+            div.navbar-collapse {
+                a.nav-link {
+                    border-radius: .5em;
+                    padding: .3em .5em;
+                    margin-right: .7em;
+                    transition: 0.5s;
+                    &:hover {
+                        background: rgba(224, 190, 190, 0.7);
+                    }
+                }
+            }
         }
     }

@@ -54,6 +54,8 @@ hr {
 .fab {
   font-size: 2em;
   color: #6b705c;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .fab:hover {
@@ -67,12 +69,33 @@ hr {
 .card-body .registravimas {
   background: #917d3d;
   border: none;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .card-body .registravimas:hover {
   background: #7e6924;
   border-radius: 0.7em;
+}
+
+nav div.container-fluid a.navbar-brand {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+nav div.container-fluid a.navbar-brand:hover {
+  color: #e0bebe;
+}
+
+nav div.container-fluid div.navbar-collapse a.nav-link {
+  border-radius: .5em;
+  padding: .3em .5em;
+  margin-right: .7em;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+nav div.container-fluid div.navbar-collapse a.nav-link:hover {
+  background: rgba(224, 190, 190, 0.7);
 }
 /*# sourceMappingURL=app.css.map */
