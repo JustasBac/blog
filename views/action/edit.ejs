@@ -3,10 +3,6 @@
     <div class="container-md w-75 mt-5 text-dark">
         <p class="fs-1">Edit a post</p>
         <form class="row g-3 needs-validation" action="/edit/<%= blog._id %>?_method=PUT" method="POST" novalidate>
-            <div class="col">
-                <label for="vardas" class="form-label">Author</label>
-                <input type="text" class="form-control" id="vardas" placeholder="Full Name" name="vardas" value="<%= blog.author %>" required>
-            </div>
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label">Heading 1</label>
                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title" name="title" value="<%= blog.title %>" required>

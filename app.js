@@ -261,12 +261,9 @@ app.delete('/edit/:id', isLoggedIn, async(req, res) => {
     res.redirect("/")
 })
 
-app.get('/generate', async(req, res) => {
-    const blog = new Blog({ author: 'Justas', title: 'Zirafos gamtoj', subheading: 'vadinasi va taip', body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, harum. Eos nobis excepturi porro! Ex ipsa odit rerum doloribus provident nostrum et dolore ab eligendi. Totam at nostrum ullam nemo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam odio possimus illum? Deserunt doloremque officia alias similique aliquam. Labore repellat harum, in ipsam ad fugit eligendi expedita eum accusantium? Quas.', date: today })
-    await blog.save()
-    res.send(`${blog}`)
+app.all('*', (req, res) => {
+    res.render("action/error")
 })
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
