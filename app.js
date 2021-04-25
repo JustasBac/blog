@@ -59,9 +59,8 @@ app.use(session({
     secret,
     name: 'blogSesija',
     resave: false,
-    saveUninitialized: true, //REIKIA PRIDETI STORE!!!!
+    saveUninitialized: true,
     cookie: {
-        secure: true,
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // viena savaite galioja
         maxAge: 1000 * 60 * 60 * 24 * 7
