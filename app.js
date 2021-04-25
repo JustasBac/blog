@@ -73,37 +73,12 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Admin.authenticate()));
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
-app.use(helmet())
-    //helmet Cybersecurito isimtys:
-const scriptSrcUrls = [
-    "https://cdn.jsdelivr.net",
-    "https://kit.fontawesome.com/",
-];
-const styleSrcUrls = [
-    "https://kit-free.fontawesome.com/",
-    "https://fonts.googleapis.com/",
-    "https://use.fontawesome.com/",
-];
-
 app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: [],
-            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-            workerSrc: ["'self'", "blob:"],
-            objectSrc: [],
-            imgSrc: [
-                "'self'",
-                "blob:",
-                "data:",
-                "https://res.cloudinary.com/", //TURI BUTI MANO ACCOUNTas
-                "https://images.unsplash.com/"
-            ],
-        },
+    helmet({
+        contentSecurityPolicy: false,
     })
 );
-//helmeto isimciu pabaiga
+
 
 //MONGO DB_------------------------------------------------------------------------------------------------------------
 
