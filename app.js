@@ -29,6 +29,8 @@ const upload = multer({ storage });
 
 const MongoDBStore = require('connect-mongo');
 
+const helmet = require('helmet')
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs')
@@ -59,6 +61,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true, //REIKIA PRIDETI STORE!!!!
     cookie: {
+        secure: true,
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // viena savaite galioja
         maxAge: 1000 * 60 * 60 * 24 * 7
@@ -70,6 +73,37 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Admin.authenticate()));
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
+app.use(helmet())
+    //helmet Cybersecurito isimtys:
+const scriptSrcUrls = [
+    "https://cdn.jsdelivr.net",
+    "https://kit.fontawesome.com/",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+];
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/", //TURI BUTI MANO ACCOUNTas
+                "https://images.unsplash.com/"
+            ],
+        },
+    })
+);
+//helmeto isimciu pabaiga
 
 //MONGO DB_------------------------------------------------------------------------------------------------------------
 
