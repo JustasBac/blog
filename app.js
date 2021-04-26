@@ -185,9 +185,9 @@ app.get('/', async(req, res) => {
     res.render("index", { blogPosts, admins })
 })
 
-app.get('/register', function(req, res) {
-    res.render("action/register")
-})
+// app.get('/register', function(req, res) {
+//     res.render("action/register")
+// })
 
 app.post('/register', upload.single('avataras'), async(req, res, next) => {
     const { email, username, text, content, password } = req.body;
